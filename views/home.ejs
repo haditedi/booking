@@ -1,0 +1,57 @@
+<%- include("partials/header"); -%>
+
+
+<div class="container h-100">
+<div class="row h-100 justify-content-center align-items-center">
+ <form class="form shadow-lg p-3 mb-5 bg-white rounded" method="post" action="/test">
+   <div class="form-group d-flex justify-content-center">
+    <img class="img-fluid" width="400" height="200" src="/image/logo.jpg"><br>
+   </div>
+    <div class="form-group d-flex justify-content-center">
+      <h1 class="myheader">--- Reservation ---</h1>
+    </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="name">Name</label>
+      <input type="text" id="name" class="form-control" name="name" placeholder="please enter name">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="email">Email</label>
+      <input type="email" id="email" class="form-control" name="email" placeholder="email">
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-3">
+      <label for="arrival">Arrival Date</label>
+      <input type="date" class="form-control" id="arrival" name="arrival" placeholder="arrival date">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="departure">Departure Date</label>
+      <input type="date" class="form-control" id="departure" name="departure" placeholder="departure date">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="rate">Rate (£) / night</label>
+      <input type="number" id="rate" class="form-control" name="rate" placeholder="rate / night">
+    </div>
+    <div class="form-group col-md-3">
+      <label for="confirmation">Confirmation number</label>
+      <input type="text" id="confirmation" class="form-control" name="confirmation" placeholder="confirmation number">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="type">Apartment Type</label>
+    <select id="type" name="apartmentType" class="form-control" size="5">
+      <option selected>Please choose ...</option>
+      <option value="onebed">One Bedroom Apartment</option>
+      <option value="twobed">Two Bedroom Apartment</option>
+      <option value="threebed">Three Bedroom Apartment</option>
+      <option value="supthreebed">Superior Three Bedroom Apartment</option>
+    </select>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+</form>
+</div>
+</div>
+
+
+<%- include("partials/footer"); -%>
