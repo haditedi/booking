@@ -1,10 +1,38 @@
-html,body {
+html,body{
     height: 100%;
+    background-color: #f2f2f2 ;
  
 }
 
 .myheader {
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    font-size: 50px;
     font-family: 'Roboto Slab', serif;
     color: #888888;
 }
 
+.logo {
+    background-color: #dedede;
+    margin:0;
+    padding:0;
+    width: 100%;
+}
+.logo-img {
+    width: 90px;
+    height: 50px;
+    /* margin-left: 3vw; */
+}
+
+a:hover { 
+    background-color: #f2f2f2;
+}
+
+.mybtn {
+    background-color: #ff4949;
+    color:white;
+}
+.mybtn:hover{
+    background-color: #c10000;
+    color:white;
+}
