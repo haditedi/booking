@@ -6,6 +6,7 @@ const fs = require('fs');
 require('dotenv').config();
 const nodemailer = require("nodemailer");
 const mongoose = require("mongoose");
+const ejs = require("ejs");
 const app = express();
 app.set('view engine', 'ejs');
 
@@ -54,6 +55,7 @@ app.get("/test", (req,res) => {
 });
 
 app.post("/test", (req,res) => {
+  const today = content.today();
   const name = req.body.name, email = req.body.email;
   const arrDate = req.body.arrival, depDate=req.body.departure, rate=req.body.rate, confirmation=req.body.confirmation; 
   const aptType=req.body.apartmentType;
@@ -76,84 +78,97 @@ app.post("/test", (req,res) => {
   //     }
   // });
 
-  let test;
-  if (occ === "") {
-    if (numChildren === ""){
-      numChildren = "0";
-      test = numAdults+' / '+numChildren;
-    }
-  } else {
-    test = "Maximum "+occ+ " guests";
-  }
+  // let test;
+  // if (occ === "") {
+  //   if (numChildren === ""){
+  //     numChildren = "0";
+  //     test = numAdults+' / '+numChildren;
+  //   }
+  // } else {
+  //   test = "Maximum "+occ+ " guests";
+  // }
   
-  let xMain = 70, xSecondary=210, ySecondary=180;
-  const doc = new PDFDocument;
-  doc.image('public/image/logo.jpg', 250, 10, {fit:[100,100], align: 'center', valign: 'center'});
-  doc.fontSize(10);
-  doc.text(content.today(), xMain, 100).moveDown();
-  doc.moveDown();
-  doc.text('Dear '+name+',').moveDown();
-  doc.text(content.opening,{lineGap:10});
-  doc.font('Helvetica-Bold').text('Name of Guest ',{lineGap:5});
-  doc.text(':  '+name, xSecondary, ySecondary);
-  doc.text('Number of Adults/Children ',xMain,ySecondary+15);
-  doc.text(':  '+test, xSecondary, ySecondary+15);
-  doc.text('Arrival Date ',xMain,ySecondary+30);
-  doc.text(':  '+content.fdate(arrDate),xSecondary,ySecondary+30);
-  doc.text('Departure Date ', xMain,ySecondary+45);
-  doc.text(':  '+content.fdate(depDate),xSecondary, ySecondary+45);
-  doc.text('No. of Nights ', xMain, ySecondary+60);
-  doc.text(':  '+numNights, xSecondary, ySecondary+60);
-  doc.text('Rate/night & Room type ', xMain, ySecondary+75);
-  doc.text(':  £ '+rate+' exclusive VAT in a '+aptType,xSecondary, ySecondary+75);
-  doc.text('Reservation Number ',xMain, ySecondary+90);
-  doc.text(': '+confirmation,xSecondary, ySecondary+90);
-  doc.text('Comment ', xMain, ySecondary+105);
-  doc.text(':  '+comment, xSecondary, ySecondary+105);
-  doc.font('Helvetica').text(content.policy, xMain, ySecondary+125, {width: 475});
-  doc.moveDown();
+  // let xMain = 70, xSecondary=210, ySecondary=180;
+  // const doc = new PDFDocument;
+  // doc.image('public/image/logo.jpg', 250, 10, {fit:[100,100], align: 'center', valign: 'center'});
+  // doc.fontSize(10);
+  // doc.text(content.today(), xMain, 100).moveDown();
+  // doc.moveDown();
+  // doc.text('Dear '+name+',').moveDown();
+  // doc.text(content.opening,{lineGap:10});
+  // doc.font('Helvetica-Bold').text('Name of Guest ',{lineGap:5});
+  // doc.text(':  '+name, xSecondary, ySecondary);
+  // doc.text('Number of Adults/Children ',xMain,ySecondary+15);
+  // doc.text(':  '+test, xSecondary, ySecondary+15);
+  // doc.text('Arrival Date ',xMain,ySecondary+30);
+  // doc.text(':  '+content.fdate(arrDate),xSecondary,ySecondary+30);
+  // doc.text('Departure Date ', xMain,ySecondary+45);
+  // doc.text(':  '+content.fdate(depDate),xSecondary, ySecondary+45);
+  // doc.text('No. of Nights ', xMain, ySecondary+60);
+  // doc.text(':  '+numNights, xSecondary, ySecondary+60);
+  // doc.text('Rate/night & Room type ', xMain, ySecondary+75);
+  // doc.text(':  £ '+rate+' exclusive VAT in a '+aptType,xSecondary, ySecondary+75);
+  // doc.text('Reservation Number ',xMain, ySecondary+90);
+  // doc.text(': '+confirmation,xSecondary, ySecondary+90);
+  // doc.text('Comment ', xMain, ySecondary+105);
+  // doc.text(':  '+comment, xSecondary, ySecondary+105);
+  // doc.font('Helvetica').text(content.policy, xMain, ySecondary+125, {width: 475});
+  // doc.moveDown();
   
-  doc.fontSize(8);
-  doc.moveDown();
-  doc.moveDown();
-  doc.font('Helvetica').text(content.footer, {width: 475, align: 'center'});
-  const filename = name+confirmation; 
-  doc.pipe(fs.createWriteStream('public/confirmation/'+filename+'.pdf'));
+  // doc.fontSize(8);
+  // doc.moveDown();
+  // doc.moveDown();
+  // doc.font('Helvetica').text(content.footer, {width: 475, align: 'center'});
+  // const filename = name+confirmation; 
+  // doc.pipe(fs.createWriteStream('public/confirmation/'+filename+'.pdf'));
   
-  doc.end();
+  // doc.end();
 
-  async function sendingMail(){
+  function sendingMail(){
     let transporter = nodemailer.createTransport({
       host: "smtp.office365.com",
       port: 587,
-      secure: false, 
+      secure: false,
+      requireTLS: true, 
       auth: {
         user: process.env.USER, 
         pass: process.env.PASS 
       },
     });
   
-    let info = await transporter.sendMail({
-      from: process.env.FROMEMAIL, 
-      to: email, 
-      subject: "Monarch House confirmation for "+name, // Subject line
-      text: "Thank you for your booking",
-      attachments: [
-          {   
-              filename: filename+'.pdf',
-              path: 'public/confirmation/'+filename+'.pdf'
-          }]
+    ejs.renderFile(__dirname + "/views/beetest.ejs", { name: name, today: today }, function (err, data) {
+      if (err) {
+          console.log(err);
+      } else {
+          let mainOptions = {
+              from: process.env.FROMEMAIL,
+              to: "hadi.tedi@monarchhouse.co.uk",
+              subject: 'Hello, world',
+              html: data
+          };
+          console.log("html data ======================>", mainOptions.html);
+          transporter.sendMail(mainOptions, function (err, info) {
+              if (err) {
+                  console.log(err);
+              } else {
+                  console.log('Message sent: ' + info.response + info.messageID);
+              }
+          });
+      }
       
-    });
+    }); 
   
-    console.log("Message sent: %s", info.messageId);
   }
   
   sendingMail();
 
-  res.render("test", {test: filename});
+  res.render("beetest", {name: name, today : today});
     
 });
+
+app.get('/testmail', (req,res) => {
+  res.render('testmail',{name: 'test'});
+})
 
 let port = process.env.PORT || 3000;
 app.listen(port, function() {

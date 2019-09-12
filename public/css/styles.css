@@ -19,9 +19,8 @@ html,body{
     width: 100%;
 }
 .logo-img {
-    width: 90px;
-    height: 50px;
-    /* margin-left: 3vw; */
+    width: 200px;
+    height: 100px;
 }
 
 a:hover { 
@@ -35,4 +34,10 @@ a:hover {
 .mybtn:hover{
     background-color: #c10000;
     color:white;
+}
+
+.container-style {
+    margin: 5%;
+    box-shadow: 5px 5px 10px grey; 
+    
 }

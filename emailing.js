@@ -2,8 +2,6 @@ require('dotenv').config();
 const nodemailer = require("nodemailer");
 
 async function sendingMail(){
-
-  // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
     host: "smtp.office365.com",
     port: 587,
@@ -14,15 +12,15 @@ async function sendingMail(){
     },
   });
 
-  let info = await transporter.sendMail({
-    from: "sales@monarchhouse.co.uk", // sender address
-    to: "hadi.tedi@monarchhouse.co.uk", // list of receivers
-    subject: "Hello", // Subject line
-    text: "Hello world?", // plain text body
+    let info = await transporter.sendMail({
+    from: process.env.FROMEMAIL, 
+    to: email, 
+    subject: "Monarch House confirmation for "+name, // Subject line
+    text: "Thank you for your booking",
     attachments: [
         {   
-            filename: 'text1.pdf',
-            path: 'public/confirmation/file.pdf'
+            filename: filename+'.pdf',
+            path: 'public/confirmation/'+filename+'.pdf'
         }]
     
   });
@@ -31,4 +29,3 @@ async function sendingMail(){
 }
 
 sendingMail();
-
