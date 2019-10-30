@@ -1,43 +1,51 @@
 <%- include("partials/header"); -%>
- 
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-  <a class="navbar-brand" href="#"><img class="logo-img d-inline-block align-center" src="/image/logo.jpg" ></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-  </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Create <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Modify</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Delete</a>
-        </li>
-      </ul>
-    </div>
-</nav>
- 
+
+
+
 <div class="container">
+
   <div class="form-row justify-content-center">
-    <form class="form p-3 mb-5 rounded" onsubmit="return validate()" method="post" action="/test">
-      <div class="form-group d-flex justify-content-center">
-        <h1 class="myheader">--- Reservation ---</h1>
-      </div>
+    <form class="form align-form" onsubmit="return validate()" method="post" action="/test">
+
+        <nav class="navbar navbar-expand-lg navbar-light d-flex align-items-end" style="background-color: #e3f2fd;">
+          <a class="navbar-brand" href="#"><img class="logo-img" src="/image/logo.jpg"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav" >
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Create <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Modify</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Delete</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
      
+      <div class="form-row">
+        <div class="form-group col-12 d-flex justify-content-center">
+          <h1 class="myheader">--- Reservation ---</h1>
+        </div>
+      </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="name">Name</label>
           <input type="text" id="name" class="form-control" name="name" placeholder="please enter name">
         </div>
+
         <div class="form-group col-md-6">
           <label for="email">Email</label>
           <input type="email" id="email" class="form-control" name="email" placeholder="email">
         </div>
       </div>
+
       <div class="form-row">
         <div class="form-group col-md-3">
           <label for="arrival">Arrival Date</label>
@@ -57,6 +65,7 @@
             placeholder="confirmation number">
         </div>
       </div>
+
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="type">Apartment Type</label>
@@ -82,8 +91,7 @@
       <div class="form-row">
         <div class="form-group col-md-3">
           <label for="numAdults">Number of Adults</label>
-          <input type="number" id="numAdults" class="form-control" name="numAdults"
-            placeholder="number of adults">
+          <input type="number" id="numAdults" class="form-control" name="numAdults" placeholder="number of adults">
         </div>
         <div class="form-group col-md-3">
           <label for="numChildren">Number of Children</label>
@@ -96,16 +104,16 @@
           <input type="number" id="occ" class="form-control" name="maxOcc" style="width:20%; display:inline;"> Guests
         </div>
       </div>
-      
+
       <div class="form-row">
         <div class="form-group col-12">
           <label for="comment">Comment</label>
           <textarea class="form-control" id="comment" rows="3" name="comment"></textarea>
-        </div>  
+        </div>
       </div>
 
       <div class="form-row">
-        <button class="btn btn-lg btn-block mybtn" type="submit" >Submit</button>
+        <button class="btn btn-lg btn-block btn-primary" type="submit">Submit</button>
       </div>
 
     </form>

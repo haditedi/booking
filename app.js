@@ -17,29 +17,6 @@ const bookingSchema = new mongoose.Schema({
   numChildren: String, comment: String, occ: String, cancellation: String
 });
 const Booking = new mongoose.model("Booking", bookingSchema);
-// const itemsSchema = new mongoose.Schema({
-//   name: String
-// });
-// const Item = new mongoose.model("Item", itemsSchema);
-
-// const walkDog = new Item({
-//   name: "Walk The Dog"
-// });
-// const exercise = new Item({
-//   name: "Exercise"
-// });
-// const shopping = new Item({
-//   name: "Shopping"
-// });
-// const defaultItems = [walkDog, exercise, shopping];
-// Item.insertMany([walkDog, exercise, shopping],(err,doc) => {
-//   if (err){
-//     console.log(err);
-//   } else {
-//     console.log(doc);
-//     console.log("Successfully saved default items");
-//   }
-// });
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -66,6 +43,7 @@ app.post("/test", (req,res) => {
   const comment = req.body.comment;
   const occ = req.body.maxOcc, cancellation = req.body.cancellation;
 
+  // if generating PDF file
   // Booking.insertMany([{name: name, email: email, arrDate: arrDate, depDate: depDate, rate: rate, 
   // confirmation: confirmation, aptType: aptType, numNights: numNights, numAdults: numAdults,
   // numChildren: numChildren, comment: comment, 

@@ -7,7 +7,6 @@ html,body{
 .myheader {
     margin-top: 5vh;
     margin-bottom: 5vh;
-    font-size: 50px;
     font-family: 'Roboto Slab', serif;
     color: #888888;
 }
@@ -27,17 +26,19 @@ a:hover {
     background-color: #f2f2f2;
 }
 
-.mybtn {
-    background-color: #ff4949;
-    color:white;
-}
-.mybtn:hover{
-    background-color: #c10000;
-    color:white;
-}
-
 .container-style {
     margin: 5%;
     box-shadow: 5px 5px 10px grey; 
     
+}
+
+.align-nav {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.align-form {
+    margin: 1rem;
+    border: solid lightgray;
+    padding: 1rem;
 }
